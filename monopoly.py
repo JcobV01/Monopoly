@@ -1,7 +1,9 @@
 import os
 
 class Board:
-    def __init__(self, nazwa, cena, kraj, domki, podatek, rola, g1, g2, g3, g4):
+    def __init__(self, id, znacznik, nazwa, cena, kraj, domki, podatek, rola, g1, g2, g3, g4):
+        self.id = id
+        self.znacznik = znacznik
         self.nazwa = nazwa
         self.cena = cena
         self.kraj = kraj
@@ -11,29 +13,45 @@ class Board:
         self.gracz = [g1, g2, g3, g4]
 
 
+pole1 = Board(0, 'a', 'Start', 0, 'None', 0, 0, 'specjalne', '', '', '', '')
+pole2 = Board(1, 'ą', 'Grenada', 60000, 'Hiszpania', 0, 3000, 'budynek', '', '', '', '')
+pole3 = Board(2, 'b', 'Sewila', 60000, 'Hiszpania', 0, 3000, 'budynek', '', '', '', '')
+pole4 = Board(3, 'c', 'Madryt', 60000, 'Hiszpania', 0, 3000, 'budynek', '', '', '', '')
+pole5 = Board(4, 'ć', 'Bali', 200000, 'Wyspa', 0, 20000, 'wyspa', '', '', '', '')
+pole6 = Board(5, 'd', 'Hongkong', 100000, 'Chiny', 0, 5000, 'budynek', '', '', '', '')
+pole7 = Board(6, 'e', 'Pekin', 100000, 'Chiny', 0, 5000, 'budynek', '', '', '', '')
+pole8 = Board(7, 'ę', 'Szanghaj', 120000, 'Chiny', 0, 6000, 'budynek', '', '', '', '')
+pole9 = Board(8, 'f', 'Wiezienie', 0, 'None', 0, 0, 'specjalne', '', '', '', '')
+pole10 = Board(9, 'g', 'Wenecja', 140000, 'Włochy', 0, 7000, 'budynek', '', '', '', '')
+pole11 = Board(10, 'h', 'Mediolan', 140000, 'Włochy', 0, 7000, 'budynek', '', '', '', '')
+pole12 = Board(11, 'i', 'Rzym', 160000, 'Włochy', 0, 16000, 'budynek', '', '', '', '')
+pole13 = Board(12, 'j', 'Szansa', 0, 'None', 0, 0, 'specjalne', '', '', '', '')
+pole12 = Board(13, 'k', 'Hamburg', 180000, 'Niemcy', 0, 18000, 'budynek', '', '', '', '')
+pole13 = Board(14, 'l', 'Cypr', 200000, 'Wyspa', 0, 20000, 'wyspa', '', '', '', '')
+pole14 = Board(15, 'ł', 'Berlin', 200000, 'Niemcy', 0, 20000, 'budynek', '', '', '', '')
+pole15 = Board(16, 'm', 'Mistrzostwa', 0, 'None', 0, 0, 'specjalne', '', '', '', '')
+pole16 = Board(17, 'n', 'Londyn', 220000, 'WielkaBrytania', 0, 22000, 'budynek', '', '', '', '')
+pole17 = Board(18, 'ń', 'Dubaj', 200000, 'Wyspa', 0, 20000, 'wyspa', '', '', '', '')
+pole18 = Board(19, 'o', 'Sydnay', 240000, 'WielkaBrytania', 0, 24000, 'budynek', '', '', '', '')
+pole19 = Board(20, 'ó', 'Szansa', 0, 'None', 0, 0, 'specjalne', '', '', '', '')
+pole20 = Board(21, 'p', 'Chicago', 260000, 'USA', 0, 26000, 'budynek', '', '', '', '')
+pole21 = Board(22, 'q', 'LasVegas', 260000, 'USA', 0, 26000, 'budynek', '', '', '', '')
+pole22 = Board(23, 'r', 'NowyJork', 280000, 'USA', 0, 28000, 'budynek', '', '', '', '')
+pole23 = Board(24, 's', 'Podroz', 0, 'None', 0, 0, 'specjalne', '', '', '', '')
+pole24 = Board(25, 't', 'Nicea', 200000, 'Wyspa', 0, 20000, 'wyspa', '', '', '', '')
+pole25 = Board(26, 'u', 'Lyon', 300000, 'Francja', 0, 30000, 'budynek', '', '', '', '')
+pole26 = Board(27, 'v', 'Paryz', 320000, 'Francja', 0, 32000, 'budynek', '', '', '', '')
+pole27 = Board(28, 'w', 'Szansa', 0, 'None', 0, 0, 'specjalne', '', '', '', '')
+pole28 = Board(29, 'x', 'Krakow', 350000, 'Polska', 0, 35000, 'budynek', '', '', '', '')
+pole29 = Board(30, 'y', 'Podatek', 0, 'None', 0, 0, 'specjalne', '', '', '', '')
+pole30 = Board(31, 'z', 'Warszawa', 400000, 'Polska', 0, 40000, 'budynek', '', '', '', '')
 
-pole1 = Board("START", 0, "None", 0, 0, "start"," ", " ", " ", " ")
-
-pole2 = Board("Sewila", 12000, "Hiszpania", 0, 34000, "posiadlosc"," ", " ", " ", " ")
-pole3 = Board("Madryt", 12000, "Hiszpania", 0, 34000, "posiadlosc"," ", " ", " ", " ")
-
-pole4 = Board("Szansa", 0, "None", 0, 34000, "szansa", " ", " ", " ", " ")
-
-pole5 = Board("Shanghai", 12000, "Chiny", 0, 34000, "posiadlosc"," ", " ", " ", " ")
-pole6 = Board("Bali", 12000, "None", 0, 34000, "podatek", " ", " ", " ", " ")
-
-pole7 = Board("Bezludna wyspa", 12000, "specjalne", 0, 34000, "kara"," ", " ", " ", " ")
-
-pole8 = Board("Wenecja", 12000, "Włochy", 0, 34000, "posiadlosc"," ", " ", " ", " ")
-pole9 = Board("Mediolan", 12000, "Włochy", 0, 34000, "posiadlosc"," ", " ", " ", " ")
-
-pole9 = Board("Szansa", 0, "None", 0, 34000, "szansa"," ", " ", " ", " ")
-
-pole10 = Board("Hamburg", 0, "Niemcy", 0, 34000, "posiadlosc"," ", " ", " ", " ")
-pole11 = Board("Cypr", 0, "None", 0, 34000, "szansa"," ", " ", " ", " ")
 
 
-polaPoziome = [pole1, pole2, pole3, pole4]
+
+
+
+
 
 
     
