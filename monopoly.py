@@ -1,4 +1,5 @@
 import os
+import random
 
 class Board:
     def __init__(self, id, znacznik, nazwa, cena, kraj, domki, podatek, rola, g1, g2, g3, g4):
@@ -46,20 +47,16 @@ pole30 = Board(29, 'x', 'Krakow', 350000, 'Polska', 0, 35000, 'budynek', ' ', ' 
 pole31 = Board(30, 'y', 'Podatek', 0, 'None', 0, 0, 'specjalne', ' ', ' ', ' ', ' ')
 pole32 = Board(31, 'z', 'Warszawa', 400000, 'Polska', 0, 40000, 'budynek', ' ', ' ', ' ', ' ')
 
-
+tablicaPol = [pole1, pole2, pole3, pole4, pole5, pole6, pole7, pole8, pole9, pole10, pole11, pole12, pole13, pole14, pole15, pole16, pole17, pole18, pole19, pole20, pole21, pole22, pole23, pole24, pole25, pole26, pole27, pole28, pole29, pole30, pole31]
 
 
 rightFilds = [pole10, pole11, pole12, pole13, pole14, pole15, pole16]
 leftFilds = [pole32, pole31, pole30, pole29, pole28, pole27, pole26]
 
 
+currentPlayerPosition = [0, 0, 0, 0]
 
-
-    
-
-
-
-def setBoard(g1, g2, g3, g4):
+def setBoard():
 
     os.system('cls')
 
@@ -68,9 +65,9 @@ def setBoard(g1, g2, g3, g4):
 
     print(f"┌{'─'*91}┐")
     print(f"│ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ │")
-    print(f"│ │ {pole1.gracz[0]}   {pole1.gracz[1]} │ │ {pole2.gracz[0]}   {pole2.gracz[1]} │ │ {pole3.gracz[0]}   {pole3.gracz[1]} │ │ {pole4.gracz[0]}   {pole4.gracz[1]} │ │ {pole5.gracz[0]}   {pole5.gracz[1]} │ │ {pole6.gracz[0]}   {pole6.gracz[1]} │ │ {pole7.gracz[0]}   {pole7.gracz[1]} │ │ {pole7.gracz[0]}   {pole7.gracz[1]} │ │ {pole7.gracz[0]}   {pole7.gracz[1]} │ │")
+    print(f"│ │ {pole1.gracz[0]}   {pole1.gracz[1]} │ │ {pole2.gracz[0]}   {pole2.gracz[1]} │ │ {pole3.gracz[0]}   {pole3.gracz[1]} │ │ {pole4.gracz[0]}   {pole4.gracz[1]} │ │ {pole5.gracz[0]}   {pole5.gracz[1]} │ │ {pole6.gracz[0]}   {pole6.gracz[1]} │ │ {pole7.gracz[0]}   {pole7.gracz[1]} │ │ {pole8.gracz[0]}   {pole8.gracz[1]} │ │ {pole9.gracz[0]}   {pole9.gracz[1]} │ │")
     print(f"│ │   a   │ │   ą   │ │   b   │ │   c   │ │   ć   │ │   d   │ │   e   │ │   ę   │ │   f   │ │")
-    print(f"│ │ {pole1.gracz[2]}   {pole1.gracz[3]} │ │ {pole2.gracz[2]}   {pole2.gracz[2]} │ │ {pole3.gracz[2]}   {pole3.gracz[3]} │ │ {pole4.gracz[2]}   {pole4.gracz[3]} │ │ {pole5.gracz[2]}   {pole5.gracz[3]} │ │ {pole6.gracz[2]}   {pole6.gracz[3]} │ │ {pole7.gracz[2]}   {pole7.gracz[3]} │ │ {pole7.gracz[2]}   {pole7.gracz[3]} │ │ {pole7.gracz[2]}   {pole7.gracz[3]} │ │")
+    print(f"│ │ {pole1.gracz[2]}   {pole1.gracz[3]} │ │ {pole2.gracz[2]}   {pole2.gracz[2]} │ │ {pole3.gracz[2]}   {pole3.gracz[3]} │ │ {pole4.gracz[2]}   {pole4.gracz[3]} │ │ {pole5.gracz[2]}   {pole5.gracz[3]} │ │ {pole6.gracz[2]}   {pole6.gracz[3]} │ │ {pole7.gracz[2]}   {pole7.gracz[3]} │ │ {pole8.gracz[2]}   {pole8.gracz[3]} │ │ {pole9.gracz[2]}   {pole9.gracz[3]} │ │")
     print(f"│ └───────┘ └───────┘ └───────┘ └───────┘ └───────┘ └───────┘ └───────┘ └───────┘ └───────┘ │")
 
     for i in range(0, 7):
@@ -87,5 +84,73 @@ def setBoard(g1, g2, g3, g4):
     print(f"│ └───────┘ └───────┘ └───────┘ └───────┘ └───────┘ └───────┘ └───────┘ └───────┘ └───────┘ │")
     print(f"└{'─'*91}┘")
 
+    print(currentPlayerPosition)
 
-setBoard(" ", " ", " ", " ")
+
+currentPlayer = 1
+currentPlayerSign = "O"
+
+def switchPlayer():
+    global currentPlayer
+    global currentPlayerSign
+
+    match currentPlayer:
+        case 1:
+            currentPlayer = 2
+            currentPlayerSign = "X"
+        case 2:
+            currentPlayer = 3
+            currentPlayerSign = "%"
+        case 3:
+            currentPlayer = 4
+            currentPlayerSign = "&"
+        case 4:
+            currentPlayer = 1
+            currentPlayerSign = "O"
+
+def dice():
+    return [random.randint(1,6), random.randint(1,6)]
+        
+wylosowane = 0
+wybor = 0
+
+
+def movePlayer():
+    global currentPlayer
+    global currentPlayerSign
+
+    tablicaPol[currentPlayerPosition[currentPlayer-1]-1].gracz[currentPlayer-1] = " "
+
+    currentPlayerPosition[currentPlayer-1] += wylosowane[0]+wylosowane[1]
+
+    if currentPlayerPosition[currentPlayer-1] >= 32:
+        currentPlayerPosition[currentPlayer-1] -= 32
+    
+    tablicaPol[currentPlayerPosition[currentPlayer-1]-1].gracz[currentPlayer-1] = currentPlayerSign
+    
+    
+
+
+while True:
+    setBoard() 
+    
+    if int(wybor) == 1:
+        wybor = 0
+        wylosowane = dice()
+
+        movePlayer()
+        switchPlayer()
+        setBoard() 
+        print(f"Wylosowane liczby to: {wylosowane[0]} i {wylosowane[1]}")
+        
+    else:
+        print("Niepoprawna opcja")
+        
+    
+    print("Co chcesz zrobić?")
+    
+    while wybor != "1":
+        wybor = input("Wybór: ")
+
+    
+
