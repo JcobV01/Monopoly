@@ -1,6 +1,12 @@
 import os
 import random
 
+class Player:
+    def __init__(self, stan_konta, posiadlosci, karty):
+        self.stan_konta = stan_konta
+        self.posiadlosci = posiadlosci
+        self.karty = karty
+
 class Board:
     def __init__(self, id, znacznik, nazwa, cena, kraj, domki, podatek, rola, g1, g2, g3, g4):
         self.id = id
@@ -14,7 +20,15 @@ class Board:
         self.gracz = [g1, g2, g3, g4]
 
 
-pole1 = Board(0, 'a', 'Start', 0, 'None', 0, 0, 'specjalne', ' ', ' ', ' ', ' ')
+gracz1 = Player(2000000, [], [])
+gracz2 = Player(2000000, [], [])
+gracz3 = Player(2000000, [], [])
+gracz4 = Player(2000000, [], [])
+
+tabelaGraczy = [gracz1, gracz2, gracz3, gracz4]
+
+
+pole1 = Board(0, 'a', 'Start', 0, 'None', 0, 0, 'specjalne', 'O', 'X', '%', '&')
 pole2 = Board(1, 'ą', 'Grenada', 60000, 'Hiszpania', 0, 3000, 'budynek', ' ', ' ', ' ', ' ')
 pole3 = Board(2, 'b', 'Sewila', 60000, 'Hiszpania', 0, 3000, 'budynek', ' ', ' ', ' ', ' ')
 pole4 = Board(3, 'c', 'Madryt', 60000, 'Hiszpania', 0, 3000, 'budynek', ' ', ' ', ' ', ' ')
@@ -62,6 +76,8 @@ def setBoard():
 
     leftLetters = ['z', 'y', 'x', 'w', 'v', 'u', 't']
     rightLetters = ['g', 'h', 'i', 'j', 'k', 'l', 'ł']
+
+    
 
     print(f"┌{'─'*91}┐")
     print(f"│ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ │")
@@ -119,16 +135,21 @@ def movePlayer():
     global currentPlayer
     global currentPlayerSign
 
-    tablicaPol[currentPlayerPosition[currentPlayer-1]-1].gracz[currentPlayer-1] = " "
+    tablicaPol[currentPlayerPosition[currentPlayer-1]].gracz[currentPlayer-1] = " "
 
     currentPlayerPosition[currentPlayer-1] += wylosowane[0]+wylosowane[1]
 
     if currentPlayerPosition[currentPlayer-1] >= 32:
         currentPlayerPosition[currentPlayer-1] -= 32
     
-    tablicaPol[currentPlayerPosition[currentPlayer-1]-1].gracz[currentPlayer-1] = currentPlayerSign
+    tablicaPol[currentPlayerPosition[currentPlayer-1]].gracz[currentPlayer-1] = currentPlayerSign
     
     
+def buyField():
+    tabelaGraczy[currentPlayer-1].stan_konta -= tablicaPol[currentPlayerPosition[currentPlayer-2]].cena
+    tabelaGraczy[currentPlayer-1].posiadlosci.append(tablicaPol[currentPlayerPosition[currentPlayer-2]].nazwa)
+    print(f"Kupiono pole {tablicaPol[currentPlayerPosition[currentPlayer-2]].nazwa}")
+
 
 
 while True:
@@ -139,9 +160,34 @@ while True:
         wylosowane = dice()
 
         movePlayer()
-        switchPlayer()
+        
         setBoard() 
+
         print(f"Wylosowane liczby to: {wylosowane[0]} i {wylosowane[1]}")
+        
+        print(f"Gracz: {currentPlayerSign} | Stan konta: {tabelaGraczy[currentPlayer-1].stan_konta} | Pole: {tablicaPol[currentPlayerPosition[currentPlayer-1]].nazwa} | Cena: {tablicaPol[currentPlayerPosition[currentPlayer-1]].cena} | Rola: {tablicaPol[currentPlayerPosition[currentPlayer-1]].rola}")
+        
+        print("---------------")
+        print(f"Stan konta 1 gracza: {tabelaGraczy[0].stan_konta}")
+        print(f"Stan konta 2 gracza: {tabelaGraczy[1].stan_konta}")
+        print(f"Stan konta 3 gracza: {tabelaGraczy[2].stan_konta}")
+        print(f"Stan konta 4 gracza: {tabelaGraczy[3].stan_konta}")
+        print("---------------")
+        
+        
+        print("Co chcesz zrobić?")
+        print("1 - kup pole")
+        print("2 - zakończ rundę")
+
+        
+        wybor2 = input("Wybór: ")
+
+        if int(wybor2) == 1:
+            buyField()
+
+        switchPlayer()
+
+
         
     else:
         print("Niepoprawna opcja")
